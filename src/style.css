@@ -17,13 +17,11 @@ body {
   margin: 1.5em auto;
 }
 
-@media (max-width: 50em) {
-  .container {
-    padding: 1.5em;
-  }
+.even-columns {
+  display: flex;
 }
 
-.even-columns {
+.photo-form-first {
   display: flex;
 }
 
@@ -57,6 +55,10 @@ body {
 
 .upload-photo input[type="file"] {
   display: none;
+}
+
+.candidate-form label{
+  width: 125px;
 }
 
 .candidate-form-control {
@@ -105,7 +107,7 @@ body {
 }
 
 .candidate-modal-content {
-  width: 32rem;
+  width: 25rem;
   margin: 0 auto;
   background-color: white;
   padding: 1.5rem;
@@ -181,7 +183,7 @@ body {
   gap: 0.3rem;
 }
 
-.skills-list .skills input[type="checkbox"] {
+.skills-list .skills input[type="checkbox"], .entry input[type="checkbox"] {
   accent-color: black;
 }
 
@@ -191,7 +193,7 @@ body {
 }
 
 .work-experience {
-  width: 94.4%;
+  width: 94.3%;
 }
 
 .work-experience input, .work-experience textarea{
@@ -248,7 +250,15 @@ body {
   padding: 4px 10px;
 }
 
+.exp-work-form {
+  width: 100%;
+}
+
 /* utility class */
+.justify-center {
+  justify-content: center;
+}
+
 .align-center {
   align-items: center;
 }
@@ -291,4 +301,43 @@ body {
 
 .cursor {
   cursor: pointer;
+}
+
+@media (max-width: 50em) {
+  .container {
+    padding: 1.5em;
+  }
+
+  .block-submit-btn {
+    padding: 1.5em;
+  }
+
+  .candidate-modal-content {
+    width: 20em;
+  }
+
+  .photo-form-first {
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .candidate-form label {
+    width: 20px;
+  }
+
+  .candidate-form-control {
+    display: block;
+  }
+
+  .candidate-form-control input {
+    margin-top: 0.3rem;
+    width: 100%;
+  }
+  
+  .flex-experience {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

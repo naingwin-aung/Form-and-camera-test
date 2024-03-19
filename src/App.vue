@@ -27,15 +27,6 @@
                 Take Photo
               </button>
 
-              <button
-                v-if="uploadedImage"
-                class="btn-open-camera"
-                @click="cropImage()"
-              >
-                <span v-show="!isCropping">Crop Image</span>
-                <span v-show="isCropping">Loading...</span>
-              </button>
-
               <button class="btn-canel-camera" @click="resetComponent()">
                 Cancel
               </button>
@@ -53,23 +44,6 @@
               </div>
               <canvas v-show="isNewPhoto" ref="canvas" class="aspect-square" />
             </div>
-
-            <div class="cropper-wrapper">
-              <Cropper
-                class="cropper-image"
-                ref="cropper"
-                :stencil-props="{
-                  movable: true,
-                  resizable: true,
-                  aspectRatio: 1,
-                }"
-                :resize-image="{
-                  adjustStencil: false,
-                }"
-                image-restriction="stencil"
-                :src="uploadedImage"
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -79,7 +53,7 @@
 
   <form @submit.prevent="submitHandler" class="upload-user-form">
     <div class="container">
-      <div class="even-columns gap-form-5">
+      <div class="photo-form-first gap-form-5">
         <!-- start upload photo -->
         <div class="upload-photo cursor" @click="openCropper = true">
           <label v-if="!previewCropPhoto" for="file"
@@ -302,14 +276,19 @@
           </div>
         </div>
 
-        <div class="text-align-center mt-30">
-          <div>Click Here if you are entry Level</div>
+        <div class="even-columns justify-center mt-30">
+          <div class="even-columns align-center">
+            Click Here if you are entry Level
+            <div class="entry even-columns align-center">
+              <input type="checkbox" id="entry" v-model="form.isEntry" :checked="form.isEntry" > <label for="entry">Japanese santence</label>
+            </div>
+          </div>
         </div>
       </section>
       <!-- end responsibilities -->
 
       <!-- start work experience -->
-      <section v-for="index in experienceYear" :key="index">
+      <section v-for="index in experienceYear" :key="index" class="exp-work-form">
         <h4 class="mb-50">({{ index }}) Work experience ({{ index }})</h4>
         <section>
           <div class="even-grid-row mb-20 align-center">
@@ -417,9 +396,6 @@ const video = ref(null);
 const canvas = ref(null);
 const photoData = ref(null);
 const file = ref(null);
-const cropper = ref(null);
-const isCropping = ref(false);
-// const uploadedPhoto = ref(null);
 const previewCropPhoto = ref(null);
 const experienceYear = ref(1);
 
@@ -440,6 +416,7 @@ const form = ref({
   language: [],
   experience: 1,
   expForm: [],
+  isEntry: false,
 });
 
 const startCamera = async () => {
@@ -493,40 +470,17 @@ const takePhoto = () => {
   isNewPhoto.value = true;
   photoData.value = canvasLocal.toDataURL();
 
-  convertBlobToUrl();
+  convertBlobToUrl();  
+  resetComponent();
 };
 
 const convertBlobToUrl = async () => {
   const blob = await (await fetch(photoData.value)).blob();
   file.value = new File([blob], "NEW_PHOTO.png", { type: blob.type });
   uploadedImage.value = URL.createObjectURL(file.value);
-  isOpenCamera.value = false;
-};
-
-const cropImage = async () => {
-  isCropping.value = true;
-  const { coordinates } = cropper.value.getResult();
-
-  // let data = new FormData();
-  // data.append("image", file.value || "");
-  // data.append("height", coordinates.height || "");
-  // data.append("width", coordinates.width || "");
-  // data.append("left", coordinates.left || "");
-  // data.append("top", coordinates.top || "");
-
-  // uploadedPhoto.value = data;
-  isCropping.value = false;
   previewCropPhoto.value = URL.createObjectURL(file.value);
-
   form.value.image = file.value;
-  form.value.height = coordinates.height;
-  form.value.width = coordinates.width;
-  form.value.left = coordinates.left;
-  form.value.top = coordinates.top;
-
-  resetComponent();
-  // console.log(file.value);
-  // console.log(form.value.image, form.value.height, form.value.width);
+  isOpenCamera.value = false;
 };
 
 const submitHandler = () => {
