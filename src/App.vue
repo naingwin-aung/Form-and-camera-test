@@ -480,6 +480,16 @@ const resetComponent = () => {
   openCropper.value = false;
   isOpenCamera.value = false;
   isNewPhoto.value = false;
+  
+  // Stop video tracks
+  if (video.value && video.value.srcObject) {
+    const stream = video.value.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach(track => track.stop());
+    video.value.srcObject = null;
+  }
+
+  // Set video reference to null
   video.value = null;
   canvas.value = null;
   uploadedImage.value = null;
