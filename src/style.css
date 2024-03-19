@@ -36,8 +36,8 @@ body {
 }
 
 .upload-photo {
-  width: 130px;
-  height: 150px;
+  width: 174px;
+  height: 197px;
   border: 1px dotted rgb(100, 149, 237);
   background-color: rgba(100, 149, 237, 0.1);
   border-radius: 4px;
@@ -183,6 +183,14 @@ body {
   gap: 0.3rem;
 }
 
+.entry {
+  gap: 0.2rem;
+}
+
+.entry-click {
+  gap: 0.2rem;
+}
+
 .skills-list .skills input[type="checkbox"], .entry input[type="checkbox"] {
   accent-color: black;
 }
@@ -238,7 +246,7 @@ body {
 
 .block-submit-btn button {
   width: 100%;
-  background-color: rgb(7, 7, 76);
+  background-color: #00153E;
   border: none;
   color: white;
   padding: 0.75rem;
@@ -247,11 +255,27 @@ body {
 
 .response-select-box select{
   outline: none;
+  background-color: #F8F8F8;
+  border: 1px solid #b1b1b1;
   padding: 4px 10px;
 }
 
 .exp-work-form {
   width: 100%;
+}
+
+.previewPhoto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  gap: 0.875rem;
+}
+
+.previewPhoto-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* utility class */
@@ -303,6 +327,7 @@ body {
   cursor: pointer;
 }
 
+/** media query **/
 @media (max-width: 50em) {
   .container {
     padding: 1.5em;
